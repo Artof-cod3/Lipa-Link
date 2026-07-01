@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.yourteam.debttracker.ui.auth.LoginFragment"
+        android:label="Login">
+        <action
+            android:id="@+id/action_login_to_register"
+            app:destination="@id/registerFragment"/>
+        <action
+            android:id="@+id/action_login_to_home"
+            app:destination="@id/debtListFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.yourteam.debttracker.ui.auth.RegisterFragment"
+        android:label="Register">
+        <action
+            android:id="@+id/action_register_to_login"
+            app:destination="@id/loginFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/debtListFragment"
+        android:name="com.yourteam.debttracker.ui.debt.DebtListFragment"
+        android:label="My Debts">
+        <action
+            android:id="@+id/action_list_to_repayment"
+            app:destination="@id/repaymentTermsFragment"/>
+        <action
+            android:id="@+id/action_list_to_email"
+            app:destination="@id/emailFollowUpFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/repaymentTermsFragment"
+        android:name="com.yourteam.debttracker.ui.repayment.RepaymentTermsFragment"
+        android:label="Repayment Terms"/>
+
+    <fragment
+        android:id="@+id/emailFollowUpFragment"
+        android:name="com.yourteam.debttracker.ui.email.EmailFollowUpFragment"
+        android:label="Email Follow-Up"/>
+
+</navigation>
