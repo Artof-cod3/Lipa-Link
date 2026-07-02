@@ -30,11 +30,24 @@
         android:name="com.yourteam.debttracker.ui.debt.DebtListFragment"
         android:label="My Debts">
         <action
+            android:id="@+id/action_debtList_to_addEdit"
+            app:destination="@id/addEditDebtFragment"/>
+        <action
             android:id="@+id/action_list_to_repayment"
             app:destination="@id/repaymentTermsFragment"/>
         <action
             android:id="@+id/action_list_to_email"
             app:destination="@id/emailFollowUpFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/addEditDebtFragment"
+        android:name="com.yourteam.debttracker.ui.debt.AddEditDebtFragment"
+        android:label="Add/Edit Debt">
+        <argument
+            android:name="debtId"
+            app:argType="integer"
+            android:defaultValue="-1"/>
     </fragment>
 
     <fragment
