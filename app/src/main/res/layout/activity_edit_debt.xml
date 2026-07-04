@@ -1,0 +1,7 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="24dp">
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Edit Debt" android:textSize="22sp" android:textStyle="bold" android:layout_marginBottom="16dp"/>
+    <EditText android:id="@+id/editPersonName" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Person's name"/>
+    <EditText android:id="@+id/editAmount" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Amount" android:inputType="numberDecimal" android:layout_marginTop="12dp"/>
+    <EditText android:id="@+id/editNotes" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Notes (optional)" android:layout_marginTop="12dp"/>
+    <Button android:id="@+id/buttonUpdateDebt" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Update Debt" android:layout_marginTop="24dp"/>
+</LinearLayout>
