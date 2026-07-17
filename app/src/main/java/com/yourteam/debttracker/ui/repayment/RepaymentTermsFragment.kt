@@ -17,6 +17,7 @@ class RepaymentTermsFragment : Fragment(R.layout.fragment_repayment_terms) {
 
     private var selectedDateMillis: Long? = null
     private var debtId: Int = -1
+    private var existingTermId: Int = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,15 +32,34 @@ class RepaymentTermsFragment : Fragment(R.layout.fragment_repayment_terms) {
         val etNotes = view.findViewById<EditText>(R.id.etNotes)
         val btnSaveTerms = view.findViewById<Button>(R.id.btnSaveTerms)
 
-        // Set up frequency spinner
         val frequencies = listOf("Weekly", "Bi-weekly", "Monthly", "Once (lump sum)", "Custom")
-        val adapter = ArrayAdapter(
+        val spinnerAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
             frequencies
         )
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerFrequency.adapter = adapter
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerFrequency.adapter = spinnerAdapter
+
+        val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val dao = AppDatabase.getDatabase(requireContext()).repaymentTermDao()
+
+        // Load existing terms if they exist for this debt
+        if (debtId != -1) {
+            dao.getTermsForDebt(debtId).observe(viewLifecycleOwner) { term ->
+                term?.let {
+                    existingTermId = it.id
+                    etTotalAmount.setText(it.totalAmount.toString())
+                    etInstalments.setText(it.numberOfInstalments.toString())
+                    etNotes.setText(it.notes)
+                    selectedDateMillis = it.dueDateFinal
+                    tvSelectedDate.text = formatter.format(Date(it.dueDateFinal))
+
+                    val freqIndex = frequencies.indexOf(it.instalmentFrequency)
+                    if (freqIndex >= 0) spinnerFrequency.setSelection(freqIndex)
+                }
+            }
+        }
 
         // Date picker
         btnPickDate.setOnClickListener {
@@ -49,7 +69,6 @@ class RepaymentTermsFragment : Fragment(R.layout.fragment_repayment_terms) {
                 { _, year, month, day ->
                     calendar.set(year, month, day)
                     selectedDateMillis = calendar.timeInMillis
-                    val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
                     tvSelectedDate.text = formatter.format(calendar.time)
                 },
                 calendar.get(Calendar.YEAR),
@@ -79,6 +98,7 @@ class RepaymentTermsFragment : Fragment(R.layout.fragment_repayment_terms) {
             val instalments = instalmentsText.toIntOrNull() ?: return@setOnClickListener
 
             val term = RepaymentTerm(
+                id = existingTermId,
                 debtId = debtId,
                 totalAmount = amount,
                 numberOfInstalments = instalments,
@@ -88,7 +108,6 @@ class RepaymentTermsFragment : Fragment(R.layout.fragment_repayment_terms) {
                 notes = notes
             )
 
-            val dao = AppDatabase.getDatabase(requireContext()).repaymentTermDao()
             viewLifecycleOwner.lifecycleScope.launch {
                 dao.insert(term)
                 requireActivity().runOnUiThread {

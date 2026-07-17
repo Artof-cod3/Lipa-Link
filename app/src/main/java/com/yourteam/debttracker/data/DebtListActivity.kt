@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.yourteam.debttracker.data.AppDatabase
 import kotlinx.coroutines.launch
 
 class DebtListActivity : AppCompatActivity() {
@@ -21,10 +22,7 @@ class DebtListActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerViewDebts)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = DebtAdapter(
-            onEditClick = { debt -> /* navigate to edit */ },
-            onDeleteClick = { debt -> /* delete from DB */ }
-        )
+
         buttonAddDebt = findViewById(R.id.buttonAddDebt)
 
         adapter = DebtAdapter(
@@ -35,22 +33,11 @@ class DebtListActivity : AppCompatActivity() {
             },
             onDeleteClick = { debt ->
                 deleteDebt(debt)
-            }
+            },
+            onRepaymentClick = { debt -> },
+            onRemindClick = { debt -> }
         )
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        val adapter = DebtAdapter(
-            onEditClick = { debt ->
-                // Navigate to edit screen
-                val intent = Intent(this, EditDebtActivity::class.java)
-                intent.putExtra("debt_id", debt.id)
-                startActivity(intent)
-            },
-            onDeleteClick = { debt ->
-                // Delete the debt
-                deleteDebt(debt)
-            }
-        )
         recyclerView.adapter = adapter
 
         buttonAddDebt.setOnClickListener {
@@ -61,7 +48,7 @@ class DebtListActivity : AppCompatActivity() {
     }
 
     private fun observeDebts() {
-        val db = DebtDatabase.getDatabase(applicationContext)
+        val db = AppDatabase.getDatabase(applicationContext)
         lifecycleScope.launch {
             db.debtDao().getAllDebts().collect { debts ->
                 adapter.submitList(debts)
@@ -71,7 +58,7 @@ class DebtListActivity : AppCompatActivity() {
 
     private fun deleteDebt(debt: Debt) {
         lifecycleScope.launch {
-            val db = DebtDatabase.getDatabase(applicationContext)
+            val db = AppDatabase.getDatabase(applicationContext)
             db.debtDao().deleteDebt(debt)
         }
     }

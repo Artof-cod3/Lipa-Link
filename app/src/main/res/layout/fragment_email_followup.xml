@@ -1,15 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="#F5F5F5">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email Follow-Up"
+        android:text="Email Reminder Setup"
         android:textSize="24sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textColor="#333333"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Debt Summary Card -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp"
+        android:layout_marginBottom="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Borrower Details"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#888888"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/tvBorrowerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name: --"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#222222"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/tvBorrowerEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email: --"
+                android:textSize="14sp"
+                android:textColor="#555555"
+                android:layout_marginBottom="8dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#DDDDDD"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/tvAmountOwed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount Owed: KES 0.00"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#3F51B5"/>
+
+            <LinearLayout
+                android:id="@+id/layoutRepaymentTerms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="8dp"
+                android:visibility="gone">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#DDDDDD"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Repayment Terms"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#888888"
+                    android:layout_marginBottom="4dp"/>
+
+                <TextView
+                    android:id="@+id/tvInstalments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Instalments: --"
+                    android:textSize="14sp"
+                    android:textColor="#333333"
+                    android:layout_marginBottom="2dp"/>
+
+                <TextView
+                    android:id="@+id/tvFinalDueDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Final Due Date: --"
+                    android:textSize="14sp"
+                    android:textColor="#333333"
+                    android:layout_marginBottom="2dp"/>
+
+                <TextView
+                    android:id="@+id/tvRepaymentNotes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Notes: --"
+                    android:textSize="14sp"
+                    android:textColor="#333333"
+                    android:textStyle="italic"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Timing Selector -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Reminder Delay"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="#888888"
+        android:layout_marginBottom="8dp"/>
+
+    <RadioGroup
+        android:id="@+id/rgTiming"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="32dp">
+
+        <RadioButton
+            android:id="@+id/rbImmediate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send immediately (10 seconds delay - for testing)"
+            android:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/rbOneDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="In 1 day"/>
+
+        <RadioButton
+            android:id="@+id/rbThreeDays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="In 3 days"/>
+
+        <RadioButton
+            android:id="@+id/rbSevenDays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="In 7 days"/>
+
+    </RadioGroup>
+
+    <!-- Schedule Button -->
+    <Button
+        android:id="@+id/btnSchedule"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Schedule Email Reminder"
+        android:textSize="16sp"
+        android:padding="12dp"/>
 
 </LinearLayout>

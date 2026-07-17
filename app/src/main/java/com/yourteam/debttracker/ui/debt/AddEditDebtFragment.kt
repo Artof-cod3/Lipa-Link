@@ -22,6 +22,7 @@ class AddEditDebtFragment : Fragment(R.layout.fragment_add_edit_debt) {
         debtId = arguments?.getInt("debtId", -1) ?: -1
 
         val etName = view.findViewById<EditText>(R.id.etPersonName)
+        val etEmail = view.findViewById<EditText>(R.id.etPersonEmail)
         val etAmount = view.findViewById<EditText>(R.id.etAmount)
         val etNotes = view.findViewById<EditText>(R.id.etNotes)
         val btnSave = view.findViewById<Button>(R.id.btnSaveDebt)
@@ -34,6 +35,7 @@ class AddEditDebtFragment : Fragment(R.layout.fragment_add_edit_debt) {
                 val existing = dao.getDebtById(debtId)
                 existing?.let {
                     etName.setText(it.personName)
+                    etEmail.setText(it.personEmail)
                     etAmount.setText(it.amount.toString())
                     etNotes.setText(it.notes)
                 }
@@ -42,6 +44,7 @@ class AddEditDebtFragment : Fragment(R.layout.fragment_add_edit_debt) {
 
         btnSave.setOnClickListener {
             val name = etName.text.toString().trim()
+            val email = etEmail.text.toString().trim()
             val amountText = etAmount.text.toString().trim()
             val notes = etNotes.text.toString().trim()
 
@@ -56,6 +59,7 @@ class AddEditDebtFragment : Fragment(R.layout.fragment_add_edit_debt) {
                     dao.insertDebt(
                         Debt(
                             personName = name,
+                            personEmail = email,
                             amount = amount,
                             dateIssued = System.currentTimeMillis(),
                             notes = notes
@@ -66,6 +70,7 @@ class AddEditDebtFragment : Fragment(R.layout.fragment_add_edit_debt) {
                         Debt(
                             id = debtId,
                             personName = name,
+                            personEmail = email,
                             amount = amount,
                             dateIssued = System.currentTimeMillis(),
                             notes = notes

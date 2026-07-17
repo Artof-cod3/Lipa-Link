@@ -36,6 +36,18 @@ class DebtListFragment : Fragment(R.layout.fragment_debt_list) {
                 viewLifecycleOwner.lifecycleScope.launch {
                     dao.deleteDebt(debt)
                 }
+            },
+            onRepaymentClick = { debt ->
+                findNavController().navigate(
+                    R.id.action_list_to_repayment,
+                    bundleOf("debtId" to debt.id)
+                )
+            },
+            onRemindClick = { debt ->
+                findNavController().navigate(
+                    R.id.action_list_to_email,
+                    bundleOf("debtId" to debt.id)
+                )
             }
         )
 
@@ -43,7 +55,6 @@ class DebtListFragment : Fragment(R.layout.fragment_debt_list) {
         recyclerView.adapter = adapter
 
         fab.setOnClickListener {
-            // -1 default means "new debt" — AddEditDebtFragment should treat -1 as create mode
             findNavController().navigate(
                 R.id.action_debtList_to_addEdit,
                 bundleOf("debtId" to -1)

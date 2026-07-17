@@ -1,3 +1,6 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -6,9 +9,21 @@ plugins {
 
 }
 
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(FileInputStream(localPropertiesFile))
+}
+val gmailUsername = localProperties.getProperty("gmail.username") ?: ""
+val gmailAppPassword = localProperties.getProperty("gmail.app.password") ?: ""
+
 android {
     namespace = "com.yourteam.debttracker"
     compileSdk = 34
+
+    buildFeatures {
+        buildConfig = true
+    }
 
     defaultConfig {
         applicationId = "com.yourteam.debttracker"
@@ -17,6 +32,9 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "GMAIL_USERNAME", "\"$gmailUsername\"")
+        buildConfigField("String", "GMAIL_APP_PASSWORD", "\"$gmailAppPassword\"")
     }
 
     buildTypes {
@@ -42,9 +60,14 @@ android {
         resources {
             excludes += "META-INF/NOTICE.md"
             excludes += "META-INF/LICENSE.md"
+            excludes += "META-INF/LICENSE"
+            excludes += "META-INF/NOTICE"
+            excludes += "META-INF/LICENSE.txt"
+            excludes += "META-INF/NOTICE.txt"
         }
     }
 }
+
 
 dependencies {
     implementation("androidx.core:core-ktx:1.12.0")

@@ -58,6 +58,11 @@
     <fragment
         android:id="@+id/emailFollowUpFragment"
         android:name="com.yourteam.debttracker.ui.email.EmailFollowUpFragment"
-        android:label="Email Follow-Up"/>
+        android:label="Email Follow-Up">
+        <argument
+            android:name="debtId"
+            app:argType="integer"
+            android:defaultValue="-1"/>
+    </fragment>
 
 </navigation>

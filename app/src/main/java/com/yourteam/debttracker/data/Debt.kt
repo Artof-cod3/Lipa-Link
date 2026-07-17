@@ -8,6 +8,7 @@ data class Debt(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val personName: String,
+    val personEmail: String = "",
     val amount: Double,
     val dateIssued: Long,   // stored as System.currentTimeMillis()
     val notes: String,

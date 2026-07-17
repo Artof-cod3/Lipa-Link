@@ -29,9 +29,9 @@
             android:id="@+id/etInstalments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
             android:hint="Number of instalments"
-            android:inputType="number"
-            android:layout_marginBottom="12dp"/>
+            android:inputType="number" />
 
         <TextView
             android:layout_width="wrap_content"

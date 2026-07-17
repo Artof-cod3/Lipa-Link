@@ -12,6 +12,13 @@
         android:hint="Person's name" />
 
     <EditText
+        android:id="@+id/etPersonEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:hint="Person's email address" />
+
+    <EditText
         android:id="@+id/etAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -6,6 +6,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.yourteam.debttracker.data.AppDatabase
 import kotlinx.coroutines.launch
 
 class EditDebtActivity : AppCompatActivity() {
@@ -42,7 +43,7 @@ class EditDebtActivity : AppCompatActivity() {
 
     private fun loadDebt(debtId: Int) {
         lifecycleScope.launch {
-            val db = DebtDatabase.getDatabase(applicationContext)
+            val db = AppDatabase.getDatabase(applicationContext)
             val debt = db.debtDao().getDebtById(debtId)
             if (debt != null) {
                 currentDebt = debt
@@ -80,7 +81,7 @@ class EditDebtActivity : AppCompatActivity() {
         )
 
         lifecycleScope.launch {
-            val db = DebtDatabase.getDatabase(applicationContext)
+            val db = AppDatabase.getDatabase(applicationContext)
             db.debtDao().updateDebt(updatedDebt)
             Toast.makeText(this@EditDebtActivity, "Debt updated", Toast.LENGTH_SHORT).show()
             finish()

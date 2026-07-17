@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.yourteam.debttracker.Debt
 import com.yourteam.debttracker.DebtDao
 
-@Database(entities = [User::class, Debt::class, RepaymentTerm::class], version = 3)
+@Database(entities = [User::class, Debt::class, RepaymentTerm::class], version = 4)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun debtDao(): DebtDao

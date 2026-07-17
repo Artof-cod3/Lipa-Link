@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 
 class DebtAdapter(
     private val onEditClick: (Debt) -> Unit,
-    private val onDeleteClick: (Debt) -> Unit
+    private val onDeleteClick: (Debt) -> Unit,
+    private val onRepaymentClick: (Debt) -> Unit,
+    private val onRemindClick: (Debt) -> Unit
 ) : ListAdapter<Debt, DebtAdapter.DebtViewHolder>(DebtDiffCallback()) {
 
     class DebtViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -19,6 +21,8 @@ class DebtAdapter(
         val notesText: TextView = view.findViewById(R.id.textNotes)
         val editButton: View = view.findViewById(R.id.buttonEdit)
         val deleteButton: View = view.findViewById(R.id.buttonDelete)
+        val repaymentButton: View = view.findViewById(R.id.buttonRepayment)
+        val remindButton: View = view.findViewById(R.id.buttonRemind)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DebtViewHolder {
@@ -35,6 +39,8 @@ class DebtAdapter(
 
         holder.editButton.setOnClickListener { onEditClick(debt) }
         holder.deleteButton.setOnClickListener { onDeleteClick(debt) }
+        holder.repaymentButton.setOnClickListener { onRepaymentClick(debt) }
+        holder.remindButton.setOnClickListener { onRemindClick(debt) }
     }
 }
 

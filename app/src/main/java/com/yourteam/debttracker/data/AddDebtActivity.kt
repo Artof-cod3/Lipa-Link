@@ -6,6 +6,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.yourteam.debttracker.data.AppDatabase
 import kotlinx.coroutines.launch
 
 class AddDebtActivity : AppCompatActivity() {
@@ -53,7 +54,7 @@ class AddDebtActivity : AppCompatActivity() {
         )
 
         lifecycleScope.launch {
-            val db = DebtDatabase.getDatabase(applicationContext)
+            val db = AppDatabase.getDatabase(applicationContext)
             db.debtDao().insertDebt(debt)
             Toast.makeText(this@AddDebtActivity, "Debt saved", Toast.LENGTH_SHORT).show()
             finish()

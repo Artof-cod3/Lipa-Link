@@ -19,6 +19,9 @@ interface RepaymentTermDao {
     @Query("SELECT * FROM repayment_terms WHERE debtId = :debtId")
     fun getTermsForDebt(debtId: Int): LiveData<RepaymentTerm?>
 
+    @Query("SELECT * FROM repayment_terms WHERE debtId = :debtId")
+    suspend fun getTermsForDebtOnce(debtId: Int): RepaymentTerm?
+
     @Query("DELETE FROM repayment_terms WHERE debtId = :debtId")
     suspend fun deleteTermsForDebt(debtId: Int)
 }
