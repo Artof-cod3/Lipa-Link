@@ -16,21 +16,6 @@ can schedule an automated email reminder that fires in the background —
 even if the app is closed — nudging the borrower to repay.
 
 
-App Flow
-
-Login / Auth (Cedric)
-        │
-        ▼
-DebtListFragment  ◄──────────────┐
-   │        │        │            │
-   │        │        │            │
-   ▼        ▼        ▼            │
-Add/Edit   Repayment  Email        │
- Debt       Terms     Follow-Up    │
-(Kelly)   (Emmanuel) (Benedict)    │
-   │        │        │            │
-   └────────┴────────┴────────────┘
-        (all return to debt list)
 
 
 Database Schema (shared AppDatabase, Room/SQLite)
